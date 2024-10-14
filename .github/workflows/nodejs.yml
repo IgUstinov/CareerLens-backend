@@ -1,0 +1,54 @@
+name: Node.js CI/CD
+
+on:
+  push:
+    branches: [main]  
+  pull_request:
+    branches: [main]  
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.18.0'  
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        env:
+          PORT: ${{ secrets.PORT }} 
+        run: npm test
+
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'  
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.18.0'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Project
+        run: npm run build
+
+      - name: Deploy to server
+        env:
+          PORT: ${{ secrets.PORT }}
+        run: |
+          echo "Deployment step"
