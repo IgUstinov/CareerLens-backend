@@ -1,16 +1,27 @@
 {
   "name": "careerlens-backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js"
+    "build": "tsc",
+    "start": "ts-node src/app.ts",
+    "dev": "ts-node-dev src/app.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "author": "Ustinov Igor Vladislavovich",
+  "license": "Apache License V2.0",
+  "description": "Backend server for CareerLens app",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "winston": "^3.15.0"
+  },
   "devDependencies": {
-    "nodemon": "^3.1.7"
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.7.5",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.6.3",
   }
 }
