@@ -12,10 +12,10 @@ class JobController {
     async getAllJobs(req: Request, res: Response): Promise<void> {
         try {
             const jobs = await this.jobService.getJobs();
-            logger.info(`JobController.getAllJobs return jobs[]: ${jobs}`)
+            logger.info(`JobController.getAllJobs return jobs[]: ${JSON.stringify(jobs)}`)
             res.status(200).json(jobs);
         } catch (error: any) {
-            logger.error(`JobController.getAllJobs error: ${error}`)
+            logger.error(`JobController.getAllJobs error: ${JSON.stringify(error)}`)
             res.status(500).json({ message: error.message });
         }
     }
