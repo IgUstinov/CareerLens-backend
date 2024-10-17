@@ -3,10 +3,16 @@ import express, { Express } from 'express';
 import routes from './routes/JobRoutes';
 import dotenv from 'dotenv';
 import logger from "./config/logger";
+import cors from 'cors';
+
 dotenv.config();
 
 const app: Express = express();
 const PORT = process.env.PORT;
+
+app.use(cors({
+    origin: 'http://localhost:4000'
+}));
 
 app.use(express.json());
 app.use('/api', routes);
