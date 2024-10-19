@@ -1,5 +1,5 @@
 import express, { Express } from 'express';
-//import connectDB from './config/database';
+import connectDB from './config/database';
 import routes from './routes/JobRoutes';
 import dotenv from 'dotenv';
 import logger from "./config/logger";
@@ -25,7 +25,7 @@ app.use((req, res, next) => {
     next();
 });
 
-//connectDB();
+connectDB();
 app.listen(PORT, () => console.log(`CareerLens backend server is running on port ${PORT}`));
 
 export default app;
