@@ -1,9 +1,8 @@
-import express, { Express } from 'express';
-import connectDB from './config/database';
-import routes from './routes/JobRoutes';
+import express, { Express, Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
-import logger from "./config/logger";
 import cors from 'cors';
+import connectDB from "./config/database";
+import routes from "./routes/JobRoutes";
 
 dotenv.config();
 
@@ -17,15 +16,15 @@ app.use(cors({
 app.use(express.json());
 app.use('/api', routes);
 
-app.use((req, res, next) => {
-    logger.info(`Получен запрос: ${req.method} ${req.url}`);
+app.use((req: Request, res: Response, next: NextFunction) => {
+    console.log(`Request: ${req.method} ${req.url}`);
     res.on('finish', () => {
-        logger.info(`Отправлен ответ: ${res.statusCode}`);
+        console.log(`Response: ${res.statusCode}`);
     });
     next();
 });
 
 connectDB();
-app.listen(PORT, () => console.log(`CareerLens backend server is running on port ${PORT}`));
 
+app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 export default app;
