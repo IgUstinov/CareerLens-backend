@@ -14,7 +14,7 @@ FROM node:20.18.0
 
 WORKDIR /app
 
-COPY --from=build /app/dist ./dist
+COPY --from=build /app/src ./src
 COPY --from=build /app/package*.json ./
 
 RUN npm install --only=production
