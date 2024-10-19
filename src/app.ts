@@ -1,5 +1,5 @@
 import express, { Express } from 'express';
-import connectDB from './config/database';
+import connectDB from './config/database.js';
 import routes from './routes/JobRoutes';
 import dotenv from 'dotenv';
 import logger from "./config/logger";
