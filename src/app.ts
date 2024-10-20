@@ -1,7 +1,8 @@
 import express, { Express, Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import connectDB from "./config/database";
+//import connectDB from "./config/database";
+import { connectToDatabase } from "./config/database"
 import routes from "./routes/JobRoutes";
 
 dotenv.config();
@@ -14,17 +15,27 @@ app.use(cors({
 }));
 
 app.use(express.json());
-app.use('/api', routes);
 
-app.use((req: Request, res: Response, next: NextFunction) => {
-    console.log(`Request: ${req.method} ${req.url}`);
-    res.on('finish', () => {
-        console.log(`Response: ${res.statusCode}`);
+connectToDatabase()
+    .then(() => {
+        app.use('/api', routes);
+
+        app.use((req: Request, res: Response, next: NextFunction) => {
+            console.log(`Request: ${req.method} ${req.url}`);
+            res.on('finish', () => {
+                console.log(`Response: ${res.statusCode}`);
+            });
+            next();
+        });
+
+//connectDB();
+
+        app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+    })
+    .catch((error: Error) => {
+        console.error("Database connection failed", error);
+        process.exit();
     });
-    next();
-});
 
-connectDB();
 
-app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 export default app;
