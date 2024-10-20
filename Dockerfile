@@ -11,6 +11,5 @@ FROM node:20.18.0
 WORKDIR /app
 COPY --from=build /app/dist ./dist
 COPY package*.json ./
-COPY migrate-mongo-config.js ./
 RUN npm install --only=production
 CMD ["node", "dist/app.js"]
