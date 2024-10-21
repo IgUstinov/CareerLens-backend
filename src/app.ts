@@ -1,9 +1,9 @@
 import express, { Express, Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-//import connectDB from "./config/database";
 import { connectToDatabase } from "./config/database"
 import routes from "./routes/JobRoutes";
+import {startConsumer} from "./config/kafka";
 
 dotenv.config();
 
@@ -11,7 +11,7 @@ const app: Express = express();
 const PORT = process.env.PORT;
 
 app.use(cors({
-    origin: 'http://localhost:4000'
+    origin: process.env.CORS_FRONTEND
 }));
 
 app.use(express.json());
@@ -27,8 +27,7 @@ connectToDatabase()
             });
             next();
         });
-
-//connectDB();
+        startConsumer('test-topic').catch(console.error);
 
         app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
     })
