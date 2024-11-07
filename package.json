@@ -6,7 +6,8 @@
     "build": "tsc",
     "start": "ts-node src/app.ts",
     "dev": "ts-node-dev src/app.ts",
-    "test": "jest"
+    "test": "jest",
+    "test:coverage": "jest --coverage"
   },
   "keywords": [],
   "author": "Ustinov Igor Vladislavovich",

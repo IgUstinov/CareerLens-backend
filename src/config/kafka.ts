@@ -2,12 +2,12 @@ import { Kafka } from 'kafkajs';
 import logger from './logger';
 
 const kafka = new Kafka({
-    clientId: process.env.KAFKA_CLIENT_ID ?? "",
-    brokers: [process.env.KAFKA_BROKER ?? ""]
+    clientId: process.env.KAFKA_CLIENT_ID ?? "backend",
+    brokers: [process.env.KAFKA_BROKER ?? "kafka:9092"]
 });
 
 export const producer = kafka.producer();
-export const consumer = kafka.consumer({ groupId: 'test-group' });
+export const consumer = kafka.consumer({ groupId: 'Backend' });
 
 export async function sendMessage(topic: string, message: string) {
     await producer.connect();
