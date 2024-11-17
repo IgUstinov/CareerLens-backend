@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import { connectToDatabase } from "./config/database"
 import routes from "./routes/JobRoutes";
-import {startConsumer} from "./config/kafka";
+import { startConsumer } from './config/kafka';
 
 dotenv.config();
 
@@ -27,7 +27,8 @@ connectToDatabase()
             });
             next();
         });
-        startConsumer('test-topic').catch(console.error);
+
+        startConsumer("Python");
 
         app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
     })
