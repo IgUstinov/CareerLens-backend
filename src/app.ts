@@ -10,10 +10,6 @@ dotenv.config();
 const app: Express = express();
 const PORT = process.env.PORT;
 
-app.use(cors({
-    origin: process.env.CORS_FRONTEND
-}));
-
 app.use(express.json());
 
 connectToDatabase()

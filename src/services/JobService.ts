@@ -93,7 +93,8 @@ export class JobService {
     async getJobsByFilter(filters: any): Promise<Job[]> {
         try {
             await this.kafkaService.sendAll(filters);
-            const collectionName = JSON.parse(await this.kafkaService.getCollectionNameFromKafka()).collectionName;
+            //const collectionName = JSON.parse(await this.kafkaService.getCollectionNameFromKafka()).collectionName;
+            const collectionName = (await this.kafkaService.getCollectionNameFromKafka()).collectionName;
             const filteredCollection = await connectToCollection(collectionName)
             if (filteredCollection) {
                 const jobs = await filteredCollection.find().toArray();

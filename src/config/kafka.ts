@@ -9,7 +9,7 @@ const kafka = new Kafka({
 });
 
 export const producer = kafka.producer();
-const consumer = kafka.consumer({ groupId: 'Backend' });
+const consumer = kafka.consumer({ groupId: process.env.KAFKA_GROUP_ID ?? 'Backend' });
 export const requestId = uuidv4();
 
 export async function sendMessage(topic: string, message: string) {
@@ -42,7 +42,7 @@ export async function startConsumer(topic: string) {
                 console.log("inside message ", message) 
                 console.log("messageValue ", messageValue) 
                 if (messageValue) {
-                    const messageValueJson = JSON.parse(JSON.parse(messageValue))
+                    const messageValueJson = JSON.parse(messageValue)
                     const isThisRequestId = messageValueJson.requestId == requestId;
                     if (!isThisRequestId) {
                         return;
